@@ -23,6 +23,7 @@
 		<!-- 启动顺序 -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -41,6 +42,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<welcome-file-list>
-		<welcome-file>/user/index</welcome-file>
+		<welcome-file>admin/login</welcome-file>
 	</welcome-file-list>
 </web-app>
