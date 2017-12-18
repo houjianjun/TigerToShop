@@ -55,7 +55,7 @@
 					</li>
 					<li class="dropdown visible-md visible-lg">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img class="user-avatar" src="images/avatar.jpg" alt="user-mail"> admin
+							<img class="user-avatar" src="/static/images/avatar.jpg" alt="user-mail"> admin
 						</a>
 					</li>
 					<li>
@@ -100,13 +100,13 @@
 										<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
 									<ul class="nav sub">
 										<li>
-											<a id="goodsClassManager" href="javascript:void()"><i class="glyphicon glyphicon-tree-deciduous"></i><span class="text">分类管理</span></a>
+											<a id="goodsClassManager" href="javascript:void()" url="/goodsClass/index"><i class="glyphicon glyphicon-tree-deciduous"></i><span class="text">分类管理</span></a>
 										</li>
 										<li>
 											<a id="goodsTypeManager" href="javascript:void()" url="/goodsType/index"><i class="glyphicon glyphicon-tasks"></i><span class="text">类型管理</span></a>
 										</li>
 										<li>
-											<a id="goodsManager" href="javascript:void()"><i class="glyphicon glyphicon-tree-conifer"></i><span class="text">商品管理</span></a>
+											<a id="goodsManager" href="javascript:void()" url="/goods/index"><i class="glyphicon glyphicon-tree-conifer"></i><span class="text">商品管理</span></a>
 										</li>
 									</ul>
 								</li>

@@ -1,213 +1,67 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xtwy.mapper.GoodsMapper" >
-  <resultMap id="BaseResultMap" type="com.xtwy.bean.Goods" >
-    <id column="goodsId" property="goodsid" jdbcType="INTEGER" />
-    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
-    <result column="goodsClsId" property="goodsclsid" jdbcType="INTEGER" />
-    <result column="goodsTypeId" property="goodstypeid" jdbcType="INTEGER" />
-    <result column="price" property="price" jdbcType="DECIMAL" />
-    <result column="Stock" property="stock" jdbcType="VARCHAR" />
-    <result column="weight" property="weight" jdbcType="DOUBLE" />
-    <result column="brandID" property="brandid" jdbcType="INTEGER" />
-    <result column="grounding" property="grounding" jdbcType="INTEGER" />
-    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    goodsId, goodsName, goodsClsId, goodsTypeId, price, Stock, weight, brandID, grounding, 
-    createDate
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from goods
-    where goodsId = #{goodsid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from goods
-    where goodsId = #{goodsid,jdbcType=INTEGER}
-  </delete>
-  
-  <insert id="insert" parameterType="com.xtwy.bean.Goods" >
-    insert into goods (goodsId, goodsName, goodsClsId, 
-      goodsTypeId, price, Stock, 
-      weight, brandID, grounding, 
-      createDate)
-    values (#{goodsid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{goodsclsid,jdbcType=INTEGER}, 
-      #{goodstypeid,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{stock,jdbcType=VARCHAR}, 
-      #{weight,jdbcType=DOUBLE}, #{brandid,jdbcType=INTEGER}, #{grounding,jdbcType=INTEGER}, 
-      #{createdate,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.xtwy.bean.Goods" >
-    insert into goods
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="goodsid != null" >
-        goodsId,
-      </if>
-      <if test="goodsname != null" >
-        goodsName,
-      </if>
-      <if test="goodsclsid != null" >
-        goodsClsId,
-      </if>
-      <if test="goodstypeid != null" >
-        goodsTypeId,
-      </if>
-      <if test="price != null" >
-        price,
-      </if>
-      <if test="stock != null" >
-        Stock,
-      </if>
-      <if test="weight != null" >
-        weight,
-      </if>
-      <if test="brandid != null" >
-        brandID,
-      </if>
-      <if test="grounding != null" >
-        grounding,
-      </if>
-      <if test="createdate != null" >
-        createDate,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="goodsid != null" >
-        #{goodsid,jdbcType=INTEGER},
-      </if>
-      <if test="goodsname != null" >
-        #{goodsname,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsclsid != null" >
-        #{goodsclsid,jdbcType=INTEGER},
-      </if>
-      <if test="goodstypeid != null" >
-        #{goodstypeid,jdbcType=INTEGER},
-      </if>
-      <if test="price != null" >
-        #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="stock != null" >
-        #{stock,jdbcType=VARCHAR},
-      </if>
-      <if test="weight != null" >
-        #{weight,jdbcType=DOUBLE},
-      </if>
-      <if test="brandid != null" >
-        #{brandid,jdbcType=INTEGER},
-      </if>
-      <if test="grounding != null" >
-        #{grounding,jdbcType=INTEGER},
-      </if>
-      <if test="createdate != null" >
-        #{createdate,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  
-  <update id="updateByPrimaryKeySelective" parameterType="com.xtwy.bean.Goods" >
-    update goods
-    <set >
-      <if test="goodsname != null" >
-        goodsName = #{goodsname,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsclsid != null" >
-        goodsClsId = #{goodsclsid,jdbcType=INTEGER},
-      </if>
-      <if test="goodstypeid != null" >
-        goodsTypeId = #{goodstypeid,jdbcType=INTEGER},
-      </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="stock != null" >
-        Stock = #{stock,jdbcType=VARCHAR},
-      </if>
-      <if test="weight != null" >
-        weight = #{weight,jdbcType=DOUBLE},
-      </if>
-      <if test="brandid != null" >
-        brandID = #{brandid,jdbcType=INTEGER},
-      </if>
-      <if test="grounding != null" >
-        grounding = #{grounding,jdbcType=INTEGER},
-      </if>
-      <if test="createdate != null" >
-        createDate = #{createdate,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where goodsId = #{goodsid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.xtwy.bean.Goods" >
-    update goods
-    set goodsName = #{goodsname,jdbcType=VARCHAR},
-      goodsClsId = #{goodsclsid,jdbcType=INTEGER},
-      goodsTypeId = #{goodstypeid,jdbcType=INTEGER},
-      price = #{price,jdbcType=DECIMAL},
-      Stock = #{stock,jdbcType=VARCHAR},
-      weight = #{weight,jdbcType=DOUBLE},
-      brandID = #{brandid,jdbcType=INTEGER},
-      grounding = #{grounding,jdbcType=INTEGER},
-      createDate = #{createdate,jdbcType=TIMESTAMP}
-    where goodsId = #{goodsid,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.xtwy.mapper.GoodsMapper">
+	<resultMap id="BaseResultMap" type="com.xtwy.bean.Goods">
+		<id column="goodsId" property="goodsId" jdbcType="INTEGER" />
+		<result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
+		<result column="goodsClsId" property="goodsClsId" jdbcType="INTEGER" />
+		<result column="goodsTypeId" property="goodsTypeId" jdbcType="INTEGER" />
+		<result column="price" property="price" jdbcType="DECIMAL" />
+		<result column="Stock" property="stock" jdbcType="VARCHAR" />
+		<result column="weight" property="weight" jdbcType="DOUBLE" />
+		<result column="brandID" property="brandId" jdbcType="INTEGER" />
+		<result column="grounding" property="grounding" jdbcType="INTEGER" />
+		<result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		goodsId, goodsName, goodsClsId, goodsTypeId, price, Stock, weight, brandID,
+		grounding,
+		createDate
+	</sql>
+	<!-- 查询一条商品 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from goods
+		where goodsId = #{goodsId,jdbcType=INTEGER}
+	</select>
+	<!-- 查询所有商品 -->
+	<select id="getGoodsAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from goods
+	</select>
+	<!-- 商品删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from goods
+		where goodsId = #{goodsId,jdbcType=INTEGER}
+	</delete>
+	<!-- 添加记录 -->
+	<insert id="insert" parameterType="com.xtwy.bean.Goods">
+		insert into goods (goodsId, goodsName, goodsClsId,
+		goodsTypeId, price, Stock,
+		weight, brandID, grounding,
+		createDate)
+		values (#{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR},
+		#{goodsClsId,jdbcType=INTEGER},
+		#{goodsTypeId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{stock,jdbcType=VARCHAR},
+		#{weight,jdbcType=DOUBLE}, #{brandId,jdbcType=INTEGER},
+		#{grounding,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP})
+	</insert>
+	<!-- 更新记录 -->
+	<update id="updateByPrimaryKey" parameterType="com.xtwy.bean.Goods">
+		update goods
+		set goodsName = #{goodsName,jdbcType=VARCHAR},
+		goodsClsId = #{goodsClsId,jdbcType=INTEGER},
+		goodsTypeId = #{goodsTypeId,jdbcType=INTEGER},
+		price = #{price,jdbcType=DECIMAL},
+		Stock = #{stock,jdbcType=VARCHAR},
+		weight = #{weight,jdbcType=DOUBLE},
+		brandID = #{brandId,jdbcType=INTEGER},
+		grounding = #{grounding,jdbcType=INTEGER},
+		createDate = #{createDate,jdbcType=TIMESTAMP}
+		where goodsId = #{goodsId,jdbcType=INTEGER}
+	</update>
 </mapper>

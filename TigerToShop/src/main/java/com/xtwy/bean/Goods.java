@@ -2,15 +2,21 @@ package com.xtwy.bean;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
+/**
+ * 
+ * @作者：侯建军
+ * @公司：山西迅腾伟业科贸有限公司
+ * @日期：2017年12月18日下午4:59:56
+ * @描述: 商品实体类
+ */
 public class Goods {
-    private Integer goodsid;
+    private Integer goodsId;
 
-    private String goodsname;
+    private String goodsName;
 
-    private Integer goodsclsid;
+    private Integer goodsClsId;
 
-    private Integer goodstypeid;
+    private Integer goodsTypeId;
 
     private BigDecimal price;
 
@@ -18,89 +24,89 @@ public class Goods {
 
     private Double weight;
 
-    private Integer brandid;
+    private Integer brandId;
 
     private Integer grounding;
 
-    private Date createdate;
+    private Date createDate;
 
-    public Integer getGoodsid() {
-        return goodsid;
-    }
+	public Integer getGoodsId() {
+		return goodsId;
+	}
 
-    public void setGoodsid(Integer goodsid) {
-        this.goodsid = goodsid;
-    }
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
+	}
 
-    public String getGoodsname() {
-        return goodsname;
-    }
+	public String getGoodsName() {
+		return goodsName;
+	}
 
-    public void setGoodsname(String goodsname) {
-        this.goodsname = goodsname == null ? null : goodsname.trim();
-    }
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
 
-    public Integer getGoodsclsid() {
-        return goodsclsid;
-    }
+	public Integer getGoodsClsId() {
+		return goodsClsId;
+	}
 
-    public void setGoodsclsid(Integer goodsclsid) {
-        this.goodsclsid = goodsclsid;
-    }
+	public void setGoodsClsId(Integer goodsClsId) {
+		this.goodsClsId = goodsClsId;
+	}
 
-    public Integer getGoodstypeid() {
-        return goodstypeid;
-    }
+	public Integer getGoodsTypeId() {
+		return goodsTypeId;
+	}
 
-    public void setGoodstypeid(Integer goodstypeid) {
-        this.goodstypeid = goodstypeid;
-    }
+	public void setGoodsTypeId(Integer goodsTypeId) {
+		this.goodsTypeId = goodsTypeId;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public String getStock() {
-        return stock;
-    }
+	public String getStock() {
+		return stock;
+	}
 
-    public void setStock(String stock) {
-        this.stock = stock == null ? null : stock.trim();
-    }
+	public void setStock(String stock) {
+		this.stock = stock;
+	}
 
-    public Double getWeight() {
-        return weight;
-    }
+	public Double getWeight() {
+		return weight;
+	}
 
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
+	public void setWeight(Double weight) {
+		this.weight = weight;
+	}
 
-    public Integer getBrandid() {
-        return brandid;
-    }
+	public Integer getBrandId() {
+		return brandId;
+	}
 
-    public void setBrandid(Integer brandid) {
-        this.brandid = brandid;
-    }
+	public void setBrandId(Integer brandId) {
+		this.brandId = brandId;
+	}
 
-    public Integer getGrounding() {
-        return grounding;
-    }
+	public Integer getGrounding() {
+		return grounding;
+	}
 
-    public void setGrounding(Integer grounding) {
-        this.grounding = grounding;
-    }
+	public void setGrounding(Integer grounding) {
+		this.grounding = grounding;
+	}
 
-    public Date getCreatedate() {
-        return createdate;
-    }
+	public Date getCreateDate() {
+		return createDate;
+	}
 
-    public void setCreatedate(Date createdate) {
-        this.createdate = createdate;
-    }
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 }

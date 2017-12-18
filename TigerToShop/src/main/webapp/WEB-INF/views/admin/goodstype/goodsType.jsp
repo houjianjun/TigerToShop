@@ -14,21 +14,21 @@
 
 <body>
 	<table id="goodsTypeTable" class="table table-hover"></table>
-	<div id="toolbar" class="btn-group pull-right"
+	<div id="toolbarTypeTable" class="btn-group pull-right"
 		style="margin-right: 20px;">
-		<button id="btn_edit" type="button" class="btn btn-primary">
+		<button id="editGoodsType" type="button" class="btn btn-primary">
 			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
 		</button>
 		<button id="deleteGoodsType" type="button" class="btn btn-success">
 			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
 		</button>
-		<button href="#addGoodsType" id="btn_add" type="button"
-			class="btn btn-danger" data-toggle="modal">
+		<button id="addGoodsType" type="button" class="btn btn-danger"
+			data-toggle="modal">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
 		</button>
 	</div>
 	<!--添加商品 -->
-	<div id="addGoodsType" class="modal fade">
+	<div id="addGoodsTypeModal" class="modal fade">
 		<div class="modal-dialog  modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -36,7 +36,7 @@
 					<span class="modal-title">添加商品类型</span><span class="close"
 						data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></span>
 					<div class="modal-body">
-						<form id="addform">
+						<form id="addGoodsTypeForm">
 							<div class="input-group">
 								<label for="goodsType">类型名称</label> <input type="text"
 									id="goodsType" placeholder="日用百货" name="goodsType"
@@ -44,7 +44,8 @@
 							</div>
 							<div class="form-group" style="margin-top: 5px">
 								<div class="col-sm-offset-4 col-sm-8">
-									<button type="button" id="save" class="btn btn-primary">保存</button>
+									<button type="button" id="saveGoodsType"
+										class="btn btn-primary">保存</button>
 								</div>
 							</div>
 						</form>
@@ -55,7 +56,7 @@
 	</div>
 
 	<!--编辑商品 -->
-	<div id="editGoodsType" class="modal fade">
+	<div id="editGoodsTypeModal" class="modal fade">
 		<!-- 小模态框 -->
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
@@ -100,7 +101,7 @@
 				<div class="modal-footer">
 					<input type="hidden" id="url" />
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<a id="delete" class="btn btn-success" data-dismiss="modal">确定</a>
+					<a id="delGoodsType" class="btn btn-success" data-dismiss="modal">确定</a>
 				</div>
 			</div>
 		</div>
@@ -115,9 +116,12 @@
 	<script type="text/javascript" src="/static/js/base.js"></script>
 	<script type="application/javascript">
 		
+		$("#addGoodsType").click(function(){
+			 $('#addGoodsTypeModal').modal();  
+		})
 			//数据保存
-			$("#save").click(function() {
-				var data = $("#addform").serializeObject();
+			$("#saveGoodsType").click(function() {
+				var data = $("#addGoodsTypeForm").serializeObject();
 				$.ajax({
 					type: 'put',
 					url: '/goodsType/add',
@@ -125,6 +129,7 @@
 					data: JSON.stringify(data),
 					success: function(data) {
 						if(data == 1) {
+							$("#addGoodsTypeModal").modal('hide');
 							//重新加载数据
 							$('#goodsTypeTable').bootstrapTable(
 								"refresh", {
@@ -137,17 +142,19 @@
 			});
 			//数据删除
 			$("#deleteGoodsType").click(function(){
-				//弹出删除确认框
-				 $('#delcfmModel').modal();  
-			});
-			
-			$("#delete").click(function(){
 				var rows= $("#goodsTypeTable").bootstrapTable('getSelections');
 				if(rows.length<=0){
 					alert("请选择要删除的记录！");
 				}else{
-					
-					var ids =new Array();  
+				//弹出删除确认框
+				 $('#delcfmModel').modal();  
+				}
+			});
+			
+			$("#delGoodsType").click(function(){
+				var rows= $("#goodsTypeTable").bootstrapTable('getSelections');
+				//获取删除ID	
+				var ids =new Array();  
 				    for (var i = 0; i < rows.length; i++) {  
 				    	ids[i]=rows[i]['goodsTypeId'];
 				    }  
@@ -172,18 +179,17 @@
 							}
 				    	}		
 				    );
-				}
 			});
 			
 			//数据修改
-			$("#btn_edit").click(function(){
+			$("#editGoodsType").click(function(){
 				var rows= $("#goodsTypeTable").bootstrapTable('getSelections');
 				if(rows.length!=1){
 					alert("请选择一条要个修改的记录！");
 				}else{
-					$("#editGoodsType #goodsType").val(rows[0].goodsType);
-					$("#editGoodsType #goodsTypeId").val(rows[0].goodsTypeId);
-					$("#editGoodsType").modal(); 
+					$("#editGoodsTypeModal #goodsType").val(rows[0].goodsType);
+					$("#editGoodsTypeModal #goodsTypeId").val(rows[0].goodsTypeId);
+					$("#editGoodsTypeModal").modal(); 
 				}
 			});
 			//修改保存
@@ -197,7 +203,7 @@
 					success: function(data) {
 						if(data == 1) {
 							//关闭模式窗口
-							$("#editGoodsType").modal('hide');
+							$("#editGoodsTypeModal").modal('hide');
 							//重新加载数据
 							$('#goodsTypeTable').bootstrapTable(
 								"refresh", {
@@ -207,7 +213,6 @@
 						}
 					}
 				});
-			
 			});
 			//根据窗口调整表格高度
 			$(window).resize(function() {
@@ -220,7 +225,7 @@
 				method: 'get',
 				url: "../goodsType/getGoodsTypeAll", //要请求数据的文件路径
 				height: tableHeight(), //高度调整
-				toolbar: '#toolbar', //指定工具栏
+				toolbar: '#toolbarTypeTable', //指定工具栏
 				striped: true, //是否显示行间隔色
 				sortable: false, //是否启用排序
 				sortOrder: "asc", //排序方式
@@ -284,6 +289,8 @@
 				return $(window).height();
 			}
 		
+	
+	
 	
 	
 	

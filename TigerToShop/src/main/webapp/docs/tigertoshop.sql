@@ -11,7 +11,7 @@
  Target Server Version : 50520
  File Encoding         : 65001
 
- Date: 15/12/2017 09:52:23
+ Date: 18/12/2017 10:43:56
 */
 
 SET NAMES utf8mb4;
@@ -100,6 +100,7 @@ DROP TABLE IF EXISTS `goodsclass`;
 CREATE TABLE `goodsclass`  (
   `goodsClsId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品分类ID',
   `goodsClsName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '商品分类名',
+  `parentClsId` int(11) DEFAULT NULL COMMENT '父类ID',
   `accessPath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '访问路径',
   `goodsType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '商品类型',
   `ordersID` int(11) DEFAULT NULL COMMENT '排序ID',
@@ -110,14 +111,14 @@ CREATE TABLE `goodsclass`  (
 -- ----------------------------
 -- Records of goodsclass
 -- ----------------------------
-INSERT INTO `goodsclass` VALUES (2, '家纺用品', NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (3, '水果蔬菜', NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (4, '学生用品', NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (5, '体育用品', NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (13, '测试分类', NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (14, '测试分类', NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (15, 'CSS分类', NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (16, '测试123', NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (2, '家纺用品', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (3, '水果蔬菜', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (4, '学生用品', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (5, '体育用品', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (13, '测试分类', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (14, '测试分类', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (15, 'CSS分类', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (16, '测试123', NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for goodspic
@@ -143,7 +144,14 @@ CREATE TABLE `goodstype`  (
   `contextPrefix` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '内容模板前缀',
   `remark` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`goodsTypeId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of goodstype
+-- ----------------------------
+INSERT INTO `goodstype` VALUES (1, NULL, NULL, '衣服', NULL, NULL, NULL);
+INSERT INTO `goodstype` VALUES (2, NULL, NULL, '电器', NULL, NULL, NULL);
+INSERT INTO `goodstype` VALUES (9, NULL, NULL, '女装', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for member

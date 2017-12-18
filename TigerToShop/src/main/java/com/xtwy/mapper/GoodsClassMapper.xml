@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xtwy.mapper.GoodsClassMapper">
+	<resultMap id="BaseResultMap" type="GoodsClass">
+		<id column="goodsClsId" property="goodsClsId" jdbcType="INTEGER" />
+		<result column="goodsClsName" property="goodsClsName" jdbcType="VARCHAR" />
+		<result column="parentClsId" property="parentClsId" jdbcType="INTEGER" />
+		<result column="accessPath" property="accessPath" jdbcType="VARCHAR" />
+		<result column="goodsType" property="goodsType" jdbcType="VARCHAR" />
+		<result column="ordersID" property="ordersId" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		goodsClsId, goodsClsName,parentClsId, accessPath,
+		goodsType, ordersID, remark
+	</sql>
+	<!-- 查询商品类型 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="Integer">
+		select
+		<include refid="Base_Column_List" />
+		from goodsclass
+		where goodsClsId = #{goodsClsId,jdbcType=INTEGER}
+	</select>
+	<!-- 查询所有商品 -->
+	<select id="selectByAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from goodsclass
+	</select>
+	<!-- 删除商品类型 -->
+	<delete id="deleteByPrimaryKey" parameterType="Integer[]">
+		delete from
+		goodsclass
+		<where>
+			<if test="array!=null">
+				<foreach collection="array" index="index" item="item"
+					open=" and goodsClsId in (" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</delete>
+	<!-- 添加商品类型 -->
+	<insert id="insert" parameterType="GoodsClass">
+		insert into goodsclass
+		(goodsClsId, goodsClsName,parentClsId, accessPath,
+		goodsType, ordersId,
+		remark
+		)
+		values (#{goodsClsId,jdbcType=INTEGER},
+		#{goodsClsName,jdbcType=VARCHAR},#{parentClsId,jdbcType=INTEGER},
+		#{accessPath,jdbcType=VARCHAR},
+		#{goodsType,jdbcType=VARCHAR},
+		#{ordersId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+		)
+	</insert>
+	<!-- 修改商品类型 -->
+	<update id="updateByPrimaryKey" parameterType="GoodsClass">
+		update goodsclass
+		set goodsClsName = #{goodsClsName,jdbcType=VARCHAR},
+		parentClsId =
+		#{parentClsId,jdbcType=INTEGER},
+		accessPath =
+		#{accessPath,jdbcType=VARCHAR},
+		goodsType =
+		#{goodsType,jdbcType=VARCHAR},
+		ordersID = #{ordersId,jdbcType=INTEGER},
+		remark = #{remark,jdbcType=VARCHAR}
+		where goodsClsId =
+		#{goodsClsId,jdbcType=INTEGER}
+	</update>
+</mapper>
