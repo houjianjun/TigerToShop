@@ -1,0 +1,16 @@
+html,
+body {
+	margin: 0px;
+}
+
+.sidebar ul.nav.nav-sidebar li.active, .sidebar ul.nav.nav-sidebar ul.active a, .sidebar ul.nav.nav-sidebar li.active a, .sidebar ul.nav.nav-sidebar ul.opened {
+    background: #181d20;
+   color: #848788;
+}
+
+.sidebar .sidebar-header {
+    height: 80px;
+}
+.sub{
+	display: none;
+}

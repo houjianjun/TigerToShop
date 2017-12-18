@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xtwy.mapper.GoodsTypeMapper">
+	<resultMap id="BaseResultMap" type="GoodsType">
+		<id column="goodsTypeId" property="goodsTypeId" jdbcType="INTEGER" />
+		<result column="goodsTypeName" property="goodsTypeName"
+			jdbcType="VARCHAR" />
+		<result column="accessPath" property="accessPath" jdbcType="VARCHAR" />
+		<result column="goodsType" property="goodsType" jdbcType="VARCHAR" />
+		<result column="tempPrefix" property="tempPrefix" jdbcType="VARCHAR" />
+		<result column="contextPrefix" property="contextPrefix"
+			jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		goodsTypeId, goodsTypeName, accessPath, goodsType,
+		tempPrefix, contextPrefix,
+		remark
+	</sql>
+	<!-- 查询所有记录 -->
+	<select id="selectByAll" resultType="GoodsType">
+		select
+		<include refid="Base_Column_List" />
+		from goodstype
+	</select>
+	<!-- 根据主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from goodstype
+		where goodsTypeId = #{goodsTypeId}
+	</select>
+	<!-- 删除记录 -->
+	<delete id="deleteByPrimaryKeys" parameterType="Integer[]">
+		delete from goodstype
+		<where>
+			<if test="array!=null">
+				<foreach collection="array" index="index" item="item"
+					open=" and goodstypeid in (" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</delete>
+	<!-- 添加记录 -->
+	<insert id="insert" parameterType="GoodsType">
+		insert into goodstype
+		(goodsTypeId, goodsTypeName, accessPath,
+		goodsType, tempPrefix,
+		contextPrefix,
+		remark)
+		values (#{goodsTypeId},
+		#{goodsTypeName},
+		#{accessPath},
+		#{goodsType}, 
+		#{tempPrefix},
+		#{contextPrefix},
+		#{remark})
+	</insert>
+
+	<!-- 记录修改 -->
+	<update id="updateByPrimaryKey" parameterType="com.xtwy.bean.GoodsType">
+		update goodstype
+		set goodsTypeName = #{goodsTypeName},
+		accessPath =
+		#{accessPath},
+		goodsType =
+		#{goodsType},
+		tempPrefix =
+		#{tempPrefix},
+		contextPrefix =
+		#{contextPrefix},
+		remark = #{remark}
+		where goodsTypeId = #{goodsTypeId}
+	</update>
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xtwy.mapper.GoodspicMapper" >
+  <resultMap id="BaseResultMap" type="com.xtwy.bean.Goodspic" >
+    <id column="goodsPicId" property="goodspicid" jdbcType="INTEGER" />
+    <result column="goodsPath" property="goodspath" jdbcType="VARCHAR" />
+    <result column="goodsId" property="goodsid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    goodsPicId, goodsPath, goodsId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodspic
+    where goodsPicId = #{goodspicid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goodspic
+    where goodsPicId = #{goodspicid,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.xtwy.bean.Goodspic" >
+    insert into goodspic (goodsPicId, goodsPath, goodsId
+      )
+    values (#{goodspicid,jdbcType=INTEGER}, #{goodspath,jdbcType=VARCHAR}, #{goodsid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xtwy.bean.Goodspic" >
+    insert into goodspic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodspicid != null" >
+        goodsPicId,
+      </if>
+      <if test="goodspath != null" >
+        goodsPath,
+      </if>
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodspicid != null" >
+        #{goodspicid,jdbcType=INTEGER},
+      </if>
+      <if test="goodspath != null" >
+        #{goodspath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.xtwy.bean.Goodspic" >
+    update goodspic
+    <set >
+      <if test="goodspath != null" >
+        goodsPath = #{goodspath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        goodsId = #{goodsid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where goodsPicId = #{goodspicid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xtwy.bean.Goodspic" >
+    update goodspic
+    set goodsPath = #{goodspath,jdbcType=VARCHAR},
+      goodsId = #{goodsid,jdbcType=INTEGER}
+    where goodsPicId = #{goodspicid,jdbcType=INTEGER}
+  </update>
+</mapper>

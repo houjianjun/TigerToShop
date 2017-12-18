@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xtwy.mapper.RolesMapper" >
+  <resultMap id="BaseResultMap" type="com.xtwy.bean.Roles" >
+    <id column="rolesId" property="rolesid" jdbcType="INTEGER" />
+    <result column="rolesNameZh" property="rolesnamezh" jdbcType="VARCHAR" />
+    <result column="rolesNameEn" property="rolesnameen" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rolesId, rolesNameZh, rolesNameEn, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from roles
+    where rolesId = #{rolesid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from roles
+    where rolesId = #{rolesid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.xtwy.bean.Roles" >
+    insert into roles (rolesId, rolesNameZh, rolesNameEn, 
+      remark)
+    values (#{rolesid,jdbcType=INTEGER}, #{rolesnamezh,jdbcType=VARCHAR}, #{rolesnameen,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xtwy.bean.Roles" >
+    insert into roles
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rolesid != null" >
+        rolesId,
+      </if>
+      <if test="rolesnamezh != null" >
+        rolesNameZh,
+      </if>
+      <if test="rolesnameen != null" >
+        rolesNameEn,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rolesid != null" >
+        #{rolesid,jdbcType=INTEGER},
+      </if>
+      <if test="rolesnamezh != null" >
+        #{rolesnamezh,jdbcType=VARCHAR},
+      </if>
+      <if test="rolesnameen != null" >
+        #{rolesnameen,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.xtwy.bean.Roles" >
+    update roles
+    <set >
+      <if test="rolesnamezh != null" >
+        rolesNameZh = #{rolesnamezh,jdbcType=VARCHAR},
+      </if>
+      <if test="rolesnameen != null" >
+        rolesNameEn = #{rolesnameen,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rolesId = #{rolesid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xtwy.bean.Roles" >
+    update roles
+    set rolesNameZh = #{rolesnamezh,jdbcType=VARCHAR},
+      rolesNameEn = #{rolesnameen,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where rolesId = #{rolesid,jdbcType=INTEGER}
+  </update>
+</mapper>
