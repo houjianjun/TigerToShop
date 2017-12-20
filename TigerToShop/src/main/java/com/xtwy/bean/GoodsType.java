@@ -1,5 +1,12 @@
 package com.xtwy.bean;
 
+/**
+ * 
+ * @作者：侯建军
+ * @公司：山西迅腾伟业科贸有限公司
+ * @日期：2017年12月19日上午10:47:42
+ * @描述: 商品类别实体类
+ */
 public class GoodsType {
     private Integer goodsTypeId;
     private String goodsTypeName;

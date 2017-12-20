@@ -2,6 +2,7 @@ package com.xtwy.bean;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 /**
  * 
  * @作者：侯建军
@@ -10,25 +11,55 @@ import java.util.Date;
  * @描述: 商品实体类
  */
 public class Goods {
-    private Integer goodsId;
+	private Integer goodsId;
 
-    private String goodsName;
+	private String goodsName;
 
-    private Integer goodsClsId;
+	private Integer goodsClsId;
 
-    private Integer goodsTypeId;
+	private Integer goodsTypeId;
 
-    private BigDecimal price;
+	private BigDecimal price;
 
-    private String stock;
+	private String stock;
 
-    private Double weight;
+	private Double weight;
 
-    private Integer brandId;
+	private Integer brandId;
 
-    private Integer grounding;
+	private Integer grounding;
 
-    private Date createDate;
+	private Date createDate;
+	//商品类别
+	private GoodsClass goodsClass;
+	//商品类型
+	private GoodsType goodsType;
+	//商品图片
+	private GoodsPic goodsPic;
+
+	public GoodsPic getGoodsPic() {
+		return goodsPic;
+	}
+
+	public void setGoodsPic(GoodsPic goodsPic) {
+		this.goodsPic = goodsPic;
+	}
+
+	public GoodsClass getGoodsClass() {
+		return goodsClass;
+	}
+
+	public void setGoodsClass(GoodsClass goodsClass) {
+		this.goodsClass = goodsClass;
+	}
+
+	public GoodsType getGoodsType() {
+		return goodsType;
+	}
+
+	public void setGoodsType(GoodsType goodsType) {
+		this.goodsType = goodsType;
+	}
 
 	public Integer getGoodsId() {
 		return goodsId;
@@ -107,6 +138,6 @@ public class Goods {
 	}
 
 	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+		this.createDate = new Date();
 	}
 }

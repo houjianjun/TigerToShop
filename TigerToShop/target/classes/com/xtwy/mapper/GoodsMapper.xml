@@ -12,9 +12,21 @@
 		<result column="brandID" property="brandId" jdbcType="INTEGER" />
 		<result column="grounding" property="grounding" jdbcType="INTEGER" />
 		<result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+		<!-- 关联类别表 -->
+		<association property="goodsClass" javaType="GoodsClass">
+			<result column="goodsClsName" property="goodsClsName"
+				jdbcType="VARCHAR" />
+		</association>
+		<!-- 关联类型表 -->
+		<association property="goodsType" javaType="GoodsType">
+			<result column="goodsType" property="goodsType"
+				jdbcType="VARCHAR" />
+		</association>
 	</resultMap>
 	<sql id="Base_Column_List">
-		goodsId, goodsName, goodsClsId, goodsTypeId, price, Stock, weight, brandID,
+		goodsId, goodsName, goods.goodsClsId, goods.goodsTypeId, price,
+		Stock,
+		weight, brandID,
 		grounding,
 		createDate
 	</sql>
@@ -30,38 +42,61 @@
 	<select id="getGoodsAll" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from goods
+		,goodsClsName,goodsType.goodsType
+		from goods,goodsclass,goodsType
+		<where>
+			goods.goodsClsId=goodsclass.goodsClsId and
+			goods.goodsTypeId=goodsType.goodsTypeId
+		</where>
 	</select>
 	<!-- 商品删除 -->
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<delete id="deleteByPrimaryKey" parameterType="Integer[]">
 		delete from goods
-		where goodsId = #{goodsId,jdbcType=INTEGER}
+		<where>
+			<if test="array!=null">
+				<foreach collection="array" index="index" item="item"
+					open=" and goodsId in (" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
 	</delete>
 	<!-- 添加记录 -->
 	<insert id="insert" parameterType="com.xtwy.bean.Goods">
-		insert into goods (goodsId, goodsName, goodsClsId,
+		insert into goods (goodsId,
+		goodsName, goodsClsId,
 		goodsTypeId, price, Stock,
-		weight, brandID, grounding,
+		weight, brandID,
+		grounding,
 		createDate)
-		values (#{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR},
+		values (#{goodsId,jdbcType=INTEGER},
+		#{goodsName,jdbcType=VARCHAR},
 		#{goodsClsId,jdbcType=INTEGER},
-		#{goodsTypeId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{stock,jdbcType=VARCHAR},
-		#{weight,jdbcType=DOUBLE}, #{brandId,jdbcType=INTEGER},
+		#{goodsTypeId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL},
+		#{stock,jdbcType=VARCHAR},
+		#{weight,jdbcType=DOUBLE},
+		#{brandId,jdbcType=INTEGER},
 		#{grounding,jdbcType=INTEGER},
 		#{createDate,jdbcType=TIMESTAMP})
 	</insert>
 	<!-- 更新记录 -->
 	<update id="updateByPrimaryKey" parameterType="com.xtwy.bean.Goods">
 		update goods
-		set goodsName = #{goodsName,jdbcType=VARCHAR},
-		goodsClsId = #{goodsClsId,jdbcType=INTEGER},
-		goodsTypeId = #{goodsTypeId,jdbcType=INTEGER},
+		set
+		goodsName = #{goodsName,jdbcType=VARCHAR},
+		goodsClsId =
+		#{goodsClsId,jdbcType=INTEGER},
+		goodsTypeId =
+		#{goodsTypeId,jdbcType=INTEGER},
 		price = #{price,jdbcType=DECIMAL},
 		Stock = #{stock,jdbcType=VARCHAR},
 		weight = #{weight,jdbcType=DOUBLE},
 		brandID = #{brandId,jdbcType=INTEGER},
-		grounding = #{grounding,jdbcType=INTEGER},
-		createDate = #{createDate,jdbcType=TIMESTAMP}
-		where goodsId = #{goodsId,jdbcType=INTEGER}
+		grounding =
+		#{grounding,jdbcType=INTEGER},
+		createDate =
+		#{createDate,jdbcType=TIMESTAMP}
+		where goodsId =
+		#{goodsId,jdbcType=INTEGER}
 	</update>
 </mapper>

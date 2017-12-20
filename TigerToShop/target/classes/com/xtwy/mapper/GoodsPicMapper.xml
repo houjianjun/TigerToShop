@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xtwy.mapper.GoodsPicMapper">
+	<resultMap id="BaseResultMap" type="GoodsPic">
+		<id column="goodsPicId" property="goodsPicId" jdbcType="INTEGER" />
+		<result column="goodsPath" property="goodsPath" jdbcType="VARCHAR" />
+		<result column="goodsId" property="goodsId" jdbcType="INTEGER" />
+		<result column="isFirst" property="isFirst" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		goodsPicId, goodsPath, goodsId,isFirst
+	</sql>
+	<!-- 查询单条记录 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from goodspic
+		where goodsPicId = #{goodspicid,jdbcType=INTEGER}
+	</select>
+	<select id="selectByAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from goodspic
+	</select>
+	<!-- 根据商品Id查询该商品所有图片 -->
+	<select id="selectByGoodsId" parameterType="Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from goodspic
+		<where>
+			and goodsId=#{goodsId}
+		</where>
+	</select>
+	<!-- 删除记录 -->
+	<delete id="deleteByPrimaryKey" parameterType="Integer">
+		delete from
+		goodspic
+		where goodsPicId = #{goodspicid,jdbcType=INTEGER}
+	</delete>
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="GoodsPic">
+		insert into goodspic
+		(goodsPath, goodsId
+		)
+		values
+		(#{goodsPath,jdbcType=VARCHAR},
+		#{goodsId,jdbcType=INTEGER}
+		)
+	</insert>
+	<!-- 更新记录 -->
+	<update id="updateByPrimaryKey" parameterType="GoodsPic">
+		update goodspic
+		set goodsPath = #{goodspath,jdbcType=VARCHAR},
+		goodsId =
+		#{goodsid,jdbcType=INTEGER}
+		where goodsPicId =
+		#{goodspicid,jdbcType=INTEGER}
+	</update>
+</mapper>

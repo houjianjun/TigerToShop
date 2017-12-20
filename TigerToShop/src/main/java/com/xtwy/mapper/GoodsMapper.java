@@ -11,9 +11,9 @@ import com.xtwy.bean.Goods;
  * @描述: 商品Mapper
  */
 public interface GoodsMapper {
-    int deleteByPrimaryKey(Integer goodsid);
     int insert(Goods record);
     Goods selectByPrimaryKey(Integer goodsid);
     int updateByPrimaryKey(Goods record);
     List<Goods> getGoodsAll();
+	void deleteByPrimaryKey(Integer[] keys);
 }
