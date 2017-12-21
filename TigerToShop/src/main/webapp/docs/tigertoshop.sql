@@ -11,7 +11,7 @@
  Target Server Version : 50520
  File Encoding         : 65001
 
- Date: 18/12/2017 10:43:56
+ Date: 21/12/2017 20:04:43
 */
 
 SET NAMES utf8mb4;
@@ -79,19 +79,22 @@ CREATE TABLE `goods`  (
   `goodsClsId` int(11) DEFAULT NULL COMMENT '分类id',
   `goodsTypeId` int(11) DEFAULT NULL COMMENT '类型ID',
   `price` decimal(10, 2) DEFAULT NULL COMMENT '销售价',
-  `Stock` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '库存',
+  `stock` int(255) DEFAULT NULL COMMENT '库存',
   `weight` double DEFAULT NULL COMMENT '重量',
   `brandID` int(11) DEFAULT NULL COMMENT '品牌Id',
   `grounding` int(11) DEFAULT NULL COMMENT ' 状态：上架，下架',
   `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建日期',
   PRIMARY KEY (`goodsId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES (1, '电冰箱', 1, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-29 13:27:54');
-INSERT INTO `goods` VALUES (2, '电视机', 1, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-29 13:28:15');
+INSERT INTO `goods` VALUES (1, '电冰箱', 2, 9, 100.00, NULL, NULL, NULL, 0, '2017-12-21 10:04:23');
+INSERT INTO `goods` VALUES (3, '笔记本', 2, 1, 100.00, NULL, NULL, NULL, 0, '2017-12-21 10:04:24');
+INSERT INTO `goods` VALUES (6, '电视机', 2, 2, 100.00, 100, NULL, NULL, 1, '2017-12-19 10:40:09');
+INSERT INTO `goods` VALUES (7, '在', 2, 2, 1.00, 1, NULL, NULL, 1, '2017-12-19 11:24:56');
+INSERT INTO `goods` VALUES (8, '2342', 3, 1, 2.00, 234, NULL, 0, 0, '2017-12-19 11:28:45');
 
 -- ----------------------------
 -- Table structure for goodsclass
@@ -106,30 +109,33 @@ CREATE TABLE `goodsclass`  (
   `ordersID` int(11) DEFAULT NULL COMMENT '排序ID',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`goodsClsId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of goodsclass
 -- ----------------------------
-INSERT INTO `goodsclass` VALUES (2, '家纺用品', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (3, '水果蔬菜', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (4, '学生用品', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (5, '体育用品', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (13, '测试分类', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (14, '测试分类', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (15, 'CSS分类', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `goodsclass` VALUES (16, '测试123', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (2, '建材家具', NULL, NULL, '2', NULL, '00000');
+INSERT INTO `goodsclass` VALUES (3, '水果蔬菜', 0, NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (4, '学生用品', 0, NULL, NULL, NULL, NULL);
+INSERT INTO `goodsclass` VALUES (5, '体育用品', 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for goodspic
 -- ----------------------------
 DROP TABLE IF EXISTS `goodspic`;
 CREATE TABLE `goodspic`  (
-  `goodsPicId` int(11) NOT NULL COMMENT '商品图片Id',
+  `goodsPicId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品图片Id',
   `goodsPath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '商品名称',
   `goodsId` int(11) DEFAULT NULL COMMENT '商品Id',
+  `isFirst` int(11) DEFAULT NULL COMMENT '是否首页显示',
   PRIMARY KEY (`goodsPicId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of goodspic
+-- ----------------------------
+INSERT INTO `goodspic` VALUES (9, 'D:\\upload\\1513766368056.jpg', 3, 1);
+INSERT INTO `goodspic` VALUES (10, 'D:\\upload\\1513766408645.jpg', 1, 1);
 
 -- ----------------------------
 -- Table structure for goodstype
@@ -258,5 +264,24 @@ CREATE TABLE `rolesandauthor`  (
 INSERT INTO `rolesandauthor` VALUES (1, 1, 1);
 INSERT INTO `rolesandauthor` VALUES (2, 2, 1);
 INSERT INTO `rolesandauthor` VALUES (3, 2, 2);
+
+-- ----------------------------
+-- Table structure for shoppingcart
+-- ----------------------------
+DROP TABLE IF EXISTS `shoppingcart`;
+CREATE TABLE `shoppingcart`  (
+  `cartId` int(11) NOT NULL AUTO_INCREMENT COMMENT '购物车ID',
+  `goodsId` int(11) DEFAULT NULL COMMENT '商品Id',
+  `goodsNum` int(255) DEFAULT NULL COMMENT '商品数量',
+  `addDate` datetime DEFAULT NULL COMMENT '添加日期',
+  `memberId` int(11) DEFAULT NULL COMMENT '会员Id',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`cartId`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of shoppingcart
+-- ----------------------------
+INSERT INTO `shoppingcart` VALUES (1, 3, 1, '2017-12-21 19:39:45', 1, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
