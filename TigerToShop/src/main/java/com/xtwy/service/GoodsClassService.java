@@ -35,4 +35,10 @@ public interface GoodsClassService {
 	 * @param goodsClass
 	 */
 	public void editGoodsClass(GoodsClass goodsClass);
+	/**
+	 * 获取单个商品
+	 * @param goodsClsId
+	 * @return
+	 */
+	public GoodsClass getGoodsClass(Integer goodsClsId);
 }

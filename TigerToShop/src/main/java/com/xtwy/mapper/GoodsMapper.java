@@ -16,4 +16,5 @@ public interface GoodsMapper {
     int updateByPrimaryKey(Goods record);
     List<Goods> getGoodsAll();
 	void deleteByPrimaryKey(Integer[] keys);
+	List<Goods> getFloorGoodsList(Goods goods);
 }

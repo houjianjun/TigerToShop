@@ -7,13 +7,13 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xtwy.bean.Goods;
-import com.xtwy.bean.GoodsClass;
 import com.xtwy.service.GoodsService;
 
 /**
@@ -50,11 +50,21 @@ public class GoodsController {
 		return "1";
 	}
 	
-	@GetMapping("getGoodsAll")
+	@GetMapping("/getGoodsAll")
 	public @ResponseBody List<Goods> getGoodsAll() {
 		List<Goods> list=goodsService.getGoodsAll();
 		//添加分页参数
 		
 		return list;
 	}
+	/**
+	 * 前台详情页面
+	 * @return
+	 */
+	@GetMapping("/getGoodsDetail/{goodsId}")
+	public @ResponseBody Goods getGoodsDetail(@PathVariable("goodsId") Integer goodsId) {
+		
+		return null;
+	}
+	
 }

@@ -2,6 +2,7 @@ package com.xtwy.bean;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -35,13 +36,13 @@ public class Goods {
 	//商品类型
 	private GoodsType goodsType;
 	//商品图片
-	private GoodsPic goodsPic;
+	private List<GoodsPic> goodsPic;
 
-	public GoodsPic getGoodsPic() {
+	public List<GoodsPic> getGoodsPic() {
 		return goodsPic;
 	}
 
-	public void setGoodsPic(GoodsPic goodsPic) {
+	public void setGoodsPic(List<GoodsPic> goodsPic) {
 		this.goodsPic = goodsPic;
 	}
 

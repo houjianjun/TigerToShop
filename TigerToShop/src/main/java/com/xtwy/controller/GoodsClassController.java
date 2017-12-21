@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xtwy.bean.GoodsClass;
-import com.xtwy.bean.GoodsType;
 import com.xtwy.service.GoodsClassService;
 
 @Controller
@@ -80,5 +80,10 @@ public class GoodsClassController {
 	public @ResponseBody String edit(@RequestBody GoodsClass goodsClass) {
 		goodsClassServie.editGoodsClass(goodsClass);
 		return "1";
+	}
+	@GetMapping("/getGoodsClass/{goodsClsId}")
+	public @ResponseBody GoodsClass getGoodsClass(@PathVariable("goodsClsId") Integer goodsClsId) {
+		GoodsClass goodsClass=goodsClassServie.getGoodsClass(goodsClsId);
+		return goodsClass;
 	}
 }

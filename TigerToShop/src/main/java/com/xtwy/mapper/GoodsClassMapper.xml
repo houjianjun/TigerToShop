@@ -22,6 +22,17 @@
 		from goodsclass
 		where goodsClsId = #{goodsClsId,jdbcType=INTEGER}
 	</select>
+	<select id="selectByWhere" parameterType="GoodsClass" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from goodsclass
+		<where>
+			<if test="goodsClsName!=null">
+				and goodsClsName=#{goodsClsName}
+			</if>
+		</where>
+	</select>
+
 	<!-- 查询所有商品 -->
 	<select id="selectByAll" resultMap="BaseResultMap">
 		select

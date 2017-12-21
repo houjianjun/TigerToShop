@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xtwy.mapper.GoodsMapper">
-	<resultMap id="BaseResultMap" type="com.xtwy.bean.Goods">
+	<resultMap id="BaseResultMap" type="Goods">
 		<id column="goodsId" property="goodsId" jdbcType="INTEGER" />
 		<result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
 		<result column="goodsClsId" property="goodsClsId" jdbcType="INTEGER" />
@@ -12,19 +12,12 @@
 		<result column="brandID" property="brandId" jdbcType="INTEGER" />
 		<result column="grounding" property="grounding" jdbcType="INTEGER" />
 		<result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
-		<!-- 关联类别表 -->
-		<association property="goodsClass" javaType="GoodsClass">
-			<result column="goodsClsName" property="goodsClsName"
-				jdbcType="VARCHAR" />
-		</association>
-		<!-- 关联类型表 -->
-		<association property="goodsType" javaType="GoodsType">
-			<result column="goodsType" property="goodsType"
-				jdbcType="VARCHAR" />
-		</association>
 	</resultMap>
+
 	<sql id="Base_Column_List">
-		goodsId, goodsName, goods.goodsClsId, goods.goodsTypeId, price,
+		goods.goodsId, goodsName, goods.goodsClsId,
+		goods.goodsTypeId,
+		price,
 		Stock,
 		weight, brandID,
 		grounding,
@@ -38,8 +31,20 @@
 		from goods
 		where goodsId = #{goodsId,jdbcType=INTEGER}
 	</select>
+	<!-- 关联类别与类型 -->
+	<resultMap type="Goods" extends="BaseResultMap" id="GoodsClassTypeMap">
+		<!-- 关联类别表 -->
+		<association property="goodsClass" javaType="GoodsClass">
+			<result column="goodsClsName" property="goodsClsName"
+				jdbcType="VARCHAR" />
+		</association>
+		<!-- 关联类型表 -->
+		<association property="goodsType" javaType="GoodsType">
+			<result column="goodsType" property="goodsType" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
 	<!-- 查询所有商品 -->
-	<select id="getGoodsAll" resultMap="BaseResultMap">
+	<select id="getGoodsAll" resultMap="GoodsClassTypeMap">
 		select
 		<include refid="Base_Column_List" />
 		,goodsClsName,goodsType.goodsType
@@ -47,6 +52,22 @@
 		<where>
 			goods.goodsClsId=goodsclass.goodsClsId and
 			goods.goodsTypeId=goodsType.goodsTypeId
+		</where>
+	</select>
+	<!-- 条件查询 -->
+	<resultMap type="Goods" extends="BaseResultMap" id="WhereResultMap">
+		<collection property="goodsPic" ofType="GoodsPic">
+			<result column="goodsPath" property="goodsPath" jdbcType="VARCHAR" />
+			<result column="isFirst" property="isFirst" jdbcType="INTEGER" />
+		</collection>
+	</resultMap>
+	<!-- 查询楼层商品 -->
+	<select id="getFloorGoodsList" parameterType="Goods" resultMap="WhereResultMap">
+		SELECT
+		<include refid="Base_Column_List" />,goodsPath,isFirst 
+		FROM goods,goodspic
+		<where>
+			and	goods.goodsId=goodspic.goodsId	and isFirst=1
 		</where>
 	</select>
 	<!-- 商品删除 -->

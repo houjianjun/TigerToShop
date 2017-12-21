@@ -35,6 +35,15 @@ public interface GoodsClassMapper {
      * @return
      */
     int updateByPrimaryKey(GoodsClass record);
-    
+    /**
+     * 查询所有类别
+     * @return
+     */
     List<GoodsClass> selectByAll();
+    /**
+     * 按条件查询
+     * @param goodsClass
+     * @return
+     */
+    List<GoodsClass> selectByWhere(GoodsClass goodsClass);
 }

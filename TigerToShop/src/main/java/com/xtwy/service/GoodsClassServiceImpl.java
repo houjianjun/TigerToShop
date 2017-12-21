@@ -41,4 +41,9 @@ public class GoodsClassServiceImpl implements GoodsClassService {
 		goodsClassMapper.updateByPrimaryKey(goodsClass);
 	}
 
+	@Override
+	public GoodsClass getGoodsClass(Integer goodsClsId) {
+		return goodsClassMapper.selectByPrimaryKey(goodsClsId);
+	}
+
 }

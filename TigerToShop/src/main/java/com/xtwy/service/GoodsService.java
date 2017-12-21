@@ -23,5 +23,15 @@ public interface GoodsService {
 	 */
 	public void addGoods(Goods goods);
 	void removeGoods(Integer[] keys);
+	/**
+	 * 获取楼层商品
+	 * @param className
+	 * @return
+	 */
+	List<Goods> getFloorGoodsList(String className);
+	/**
+	 * 获取一个商品
+	 */
+	Goods getGoods(Integer goodsId);
 
 }

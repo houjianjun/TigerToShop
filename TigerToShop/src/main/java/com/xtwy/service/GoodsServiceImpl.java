@@ -1,5 +1,6 @@
 package com.xtwy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,7 +8,12 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.xtwy.bean.Goods;
+import com.xtwy.bean.GoodsClass;
+import com.xtwy.bean.GoodsPic;
+import com.xtwy.common.Base64Pic;
+import com.xtwy.mapper.GoodsClassMapper;
 import com.xtwy.mapper.GoodsMapper;
+
 /**
  * 
  * @作者：侯建军
@@ -17,9 +23,11 @@ import com.xtwy.mapper.GoodsMapper;
  */
 @Service
 public class GoodsServiceImpl implements GoodsService {
-	
+
 	@Resource
 	private GoodsMapper goodsMapper;
+	@Resource
+	private GoodsClassMapper goodsClassMapper;
 
 	@Override
 	public List<Goods> getGoodsAll() {
@@ -29,7 +37,7 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public void addGoods(Goods goods) {
 		//
-		goodsMapper.insert(goods);		
+		goodsMapper.insert(goods);
 	}
 
 	@Override
@@ -37,4 +45,28 @@ public class GoodsServiceImpl implements GoodsService {
 		goodsMapper.deleteByPrimaryKey(keys);
 	}
 
+	@Override
+	public List<Goods> getFloorGoodsList(String className) {
+		GoodsClass temp = new GoodsClass();
+		temp.setGoodsClsName(className);
+		List<GoodsClass> clsList = goodsClassMapper.selectByWhere(temp);
+		Goods goods = new Goods();
+		if (clsList.size() > 0) {
+			goods.setGoodsClsId(clsList.get(0).getGoodsClsId());
+		}
+		List<Goods> list = goodsMapper.getFloorGoodsList(goods);
+		List<Goods> newList = new ArrayList<>();
+		for (Goods goods2 : list) {
+			for (GoodsPic GoodsPic : goods2.getGoodsPic()) {
+				GoodsPic.setGoodsPath(Base64Pic.GetImageStr(GoodsPic.getGoodsPath()));
+			}
+			newList.add(goods2);
+		}
+		return list;
+	}
+
+	@Override
+	public Goods getGoods(Integer goodsId) {
+		return goodsMapper.selectByPrimaryKey(goodsId);
+	}
 }
