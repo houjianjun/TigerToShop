@@ -173,6 +173,7 @@
 		</div>
 		<div class="clear "></div>
 	</div>
+	<%@include file="bottomNav.jsp"%>
 	<%@include file="footer.jsp"%>
 	<script src="/static/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
 	<script src="/static/AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
