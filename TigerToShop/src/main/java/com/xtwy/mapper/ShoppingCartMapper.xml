@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xtwy.mapper.ShoppingCartMapper">
+	<resultMap id="BaseResultMap" type="ShoppingCart">
+		<id column="cartId" property="cartId" jdbcType="INTEGER" />
+		<result column="goodsId" property="goodsId" jdbcType="INTEGER" />
+		<result column="goodsNum" property="goodsNum" jdbcType="INTEGER" />
+		<result column="addDate" property="addDate" jdbcType="TIMESTAMP" />
+		<result column="memberId" jdbcType="INTEGER" property="memberId" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		cartId, shoppingCart.goodsId, goodsNum, addDate,memberId, remark
+	</sql>
+	<!-- 查询单条记录 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="Integer">
+		select
+		<include refid="Base_Column_List" />
+		from shoppingcart
+		where cartId = #{cartId,jdbcType=INTEGER}
+	</select>
+	<resultMap type="ShoppingCart" extends="BaseResultMap" id="ResultMapWhere">
+		<association property="goods" javaType="Goods">
+			<result column="goodsName" property="goodsName" />
+			<result column="price" property="price" />
+			<result column="stock" property="stock" />
+		</association>
+	</resultMap>
+	<select id="selectByWhere" resultMap="ResultMapWhere"
+		parameterType="ShoppingCart">
+		select
+		<include refid="Base_Column_List" />,goodsName,price,stock
+		from shoppingcart,goods
+		<where>
+			shoppingCart.goodsId=goods.goodsId
+			<if test="goodsId!=null">
+				and goodsId=#{goodsId}
+			</if>
+			<if test="memberId!=null">
+				and memberId=#{memberId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 删除记录 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		shoppingcart
+		where cartId = #{cartId,jdbcType=INTEGER}
+	</delete>
+	<!-- 添加记录 -->
+	<insert id="insert" parameterType="ShoppingCart">
+		insert into shoppingcart
+		(cartId, goodsId, goodsNum,
+		addDate, memberId, remark
+		)
+		values
+		(#{cartId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER},
+		#{goodsNum,jdbcType=INTEGER},
+		#{addDate,jdbcType=TIMESTAMP},
+		#{memberId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="ShoppingCart">
+		update
+		shoppingcart
+		set goodsId = #{goodsId,jdbcType=INTEGER},
+		goodsNum =
+		#{goodsNum,jdbcType=INTEGER},
+		addDate = #{addDate,jdbcType=TIMESTAMP},
+		memberId = #{memberId,jdbcType=INTEGER},
+		remark =
+		#{remark,jdbcType=VARCHAR}
+		where cartId = #{cartId,jdbcType=INTEGER}
+	</update>
+
+
+</mapper>
